@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="current1_textView_text">Current Weather</string>
+    <string name="bottom_menu_current_title">Current Weather</string>
+    <string name="bottom_menu_favorites_title">Favorites</string>
+    <string name="favorites_textView_text">Favorites</string>
+</resources>
