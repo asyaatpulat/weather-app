@@ -7,18 +7,14 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class RetrofitClient {
+object RetrofitClient {
    val moshi = Moshi.Builder()
       .add(KotlinJsonAdapterFactory())
       .build()
 
-   val api = Retrofit.Builder()
+   val weatherAPI = Retrofit.Builder()
       .baseUrl(Configs.Network.API_BASE_URL)
       .addConverterFactory(MoshiConverterFactory.create(moshi))
       .build()
       .create(WeatherAPI::class.java)
-
-   suspend fun getDataService(query:String): CurrentWeatherResponse? {
-      return api.userSearch(query)
-   }
 }

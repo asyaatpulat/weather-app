@@ -8,10 +8,23 @@
         android:id="@+id/current_weather_fragment"
         android:name="com.asya.weatherapp.ui.currentWeather.CurrentWeatherFragment"
         android:label="Current Weather"
-        tools:layout="@layout/fragment_current_weather" />
+        tools:layout="@layout/fragment_current_weather">
+        <action
+            android:id="@+id/action_current_weather_fragment_to_weatherDetailFragment"
+            app:destination="@id/weatherDetailFragment" />
+
+    </fragment>
     <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.asya.weatherapp.ui.FavoritesFragment"
+        android:id="@+id/favorites_weather_fragment"
+        android:name="com.asya.weatherapp.ui.favoritesWeather.FavoritesWeatherFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites_weather" />
+    <fragment
+        android:id="@+id/weatherDetailFragment"
+        android:name="com.asya.weatherapp.ui.weatherDetail.WeatherDetailFragment"
+        android:label="WeatherDetailFragment">
+        <argument
+            android:name="cityName"
+            app:argType="string" />
+    </fragment>
 </navigation>
