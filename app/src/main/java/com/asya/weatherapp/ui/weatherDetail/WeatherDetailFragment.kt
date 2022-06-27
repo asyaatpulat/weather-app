@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.asya.weatherapp.databinding.WeatherDetailFragmentBinding
+import com.asya.weatherapp.ui.MainActivity
 import kotlinx.coroutines.*
 
 class WeatherDetailFragment : Fragment() {
@@ -30,16 +32,18 @@ class WeatherDetailFragment : Fragment() {
         }
         binding.cityName.text = args.cityName
 
-
-
-
-        viewModel.cityDetailData.observe(this, { response ->
+        viewModel.cityDetailData.observe(viewLifecycleOwner) { response ->
             binding.humidityDegree.text = response.main?.humidity.toString()
             binding.degree.text = response.main?.temp.toString()
             binding.windSpeedDegree.text = response.wind?.speed.toString()
             binding.windDegree2.text = response.wind?.deg.toString()
-           // binding.icon.load("http://openweathermap.org/img/wn/" + response.weather?.get(0)?.icon + "@2x.png")
-        })
+            binding.icon.load("https://openweathermap.org/img/wn/" + response.weather?.get(0)?.icon + "@2x.png")
+        }
+
+        val toolbar = (activity as MainActivity).toolbar
+
+        toolbar?.titleTextView?.text = "Weather Detail"
+
         return binding.root
     }
 
