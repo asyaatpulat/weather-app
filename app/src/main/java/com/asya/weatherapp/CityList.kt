@@ -166,6 +166,11 @@ object CityList {
                         "Colombo"
                     )
                 )
+                add(
+                    CityModel(
+                        "Izmir"
+                    )
+                )
             }
     }
 }

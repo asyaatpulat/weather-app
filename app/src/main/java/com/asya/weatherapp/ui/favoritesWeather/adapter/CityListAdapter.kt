@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.asya.weatherapp.R
 import com.asya.weatherapp.ui.favoritesWeather.model.CityModel
@@ -31,7 +30,7 @@ class CityListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityListViewHolder {
         return CityListViewHolder(
             itemView = LayoutInflater.from(parent.context).inflate(
-                R.layout.city_text, parent,
+                R.layout.item_city, parent,
                 false
             )
         )

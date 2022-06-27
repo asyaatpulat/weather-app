@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.asya.weatherapp.databinding.FragmentCurrentWeatherBinding
+import coil.load
 import com.asya.weatherapp.databinding.WeatherDetailFragmentBinding
-import com.asya.weatherapp.ui.currentWeather.CurrentWeatherViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.*
 
 class WeatherDetailFragment : Fragment() {
     private val viewModel = WeatherDetailViewModel()
@@ -29,10 +25,22 @@ class WeatherDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = WeatherDetailFragmentBinding.inflate(layoutInflater)
-        val cityName = args.cityName
-        binding.textView3.text = cityName
-        return binding.root
+        uiScope.launch(Dispatchers.IO) {
+            viewModel.getCityDetail(cityName = args.cityName)
+        }
+        binding.cityName.text = args.cityName
 
+
+
+
+        viewModel.cityDetailData.observe(this, { response ->
+            binding.humidityDegree.text = response.main?.humidity.toString()
+            binding.degree.text = response.main?.temp.toString()
+            binding.windSpeedDegree.text = response.wind?.speed.toString()
+            binding.windDegree2.text = response.wind?.deg.toString()
+           // binding.icon.load("http://openweathermap.org/img/wn/" + response.weather?.get(0)?.icon + "@2x.png")
+        })
+        return binding.root
     }
 
     override fun onDestroy() {

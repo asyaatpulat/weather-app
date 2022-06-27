@@ -5,20 +5,17 @@ import com.asya.weatherapp.data.remote.api.RetrofitClient
 import com.asya.weatherapp.data.remote.model.CurrentWeatherResponse
 
 class WeatherDetailViewModel {
+
     private val weatherAPI = RetrofitClient.weatherAPI
-
-    val weatherData = MutableLiveData<CurrentWeatherResponse>()
-    val weatherError = MutableLiveData<Boolean>()
-    val weatherLoad = MutableLiveData<Boolean>()
-
+    val cityDetailData = MutableLiveData<CurrentWeatherResponse>()
 
     suspend fun refreshData(cityName: String) {
-        getDataFromAPI(cityName)
+        getCityDetail(cityName)
     }
 
-    private suspend fun getDataFromAPI(cityName: String) {
-        weatherLoad.value = true
+    suspend fun getCityDetail(cityName: String) {
         val response = weatherAPI.userSearch(cityName)
-        response?.let { weatherData.postValue(it) }
+        response?.let { cityDetailData.postValue(it) }
     }
+
 }
