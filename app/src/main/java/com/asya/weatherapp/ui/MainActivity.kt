@@ -2,16 +2,13 @@ package com.asya.weatherapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
+import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.asya.weatherapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.asya.weatherapp.databinding.ActivityMainBinding
-
-
-
+import com.asya.weatherapp.databinding.CustomToolbarBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -26,7 +23,16 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.current_weather_fragment, R.id.favorites_weather_fragment))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        bottomNavigationView.setupWithNavController(navController)
+        toolbar = binding.toolbar
+        toolbar?.titleTextView?.text = "Current Weather"
+        toolbar?.backButton?.visibility = View.INVISIBLE
+        toolbar?.titleTextView?.visibility = View.VISIBLE
+        toolbar?.favbutton?.visibility = View.INVISIBLE
 
+
+        val navController = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)?.findNavController()
+        navController?.let {
+            binding.bottomNavigationView.setupWithNavController(navController)
+        }
     }
 }
